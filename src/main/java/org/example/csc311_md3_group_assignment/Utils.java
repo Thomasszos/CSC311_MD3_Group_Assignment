@@ -9,14 +9,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Utils {
+
+    //Handles changing of FXMLs.
     private static Stage primaryStage;
     private static VBox myRoot;
 
+
+    //Sets the uniform vars.
     public static void setStage(Stage stage,VBox root) {
         primaryStage = stage;
         myRoot = root;
     }
 
+
+    //Loads whatever FXMl we want to work with.
     public static void changeRoot(String fxmlPath) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource(fxmlPath));

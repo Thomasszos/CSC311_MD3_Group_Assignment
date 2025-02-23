@@ -13,10 +13,14 @@ public class MazeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         VBox root = new VBox();
-
+        //Sets the stage and root we will be adjusting.
         Utils.setStage(stage, root);
+
+        //Sets the exact FXML that will be used currently.
         Utils.changeRoot("firstmaze-view.fxml");
 
+
+        //Old Code.
 //        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("firstmaze-view.fxml"));
 //        fxmlLoader.setRoot(root);
 //        Scene scene = new Scene(fxmlLoader.load(), 603, 423);
