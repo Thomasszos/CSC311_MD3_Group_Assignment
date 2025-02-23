@@ -38,7 +38,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="vbRoot" prefHeight="423.0" prefWidth="603.0" type="VBox" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.csc311_md3_group_assignment.FirstMazeController">
+<VBox fx:id="vbRoot" prefHeight="423.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.csc311_md3_group_assignment.FirstMazeController">
    <children>
       <StackPane fx:id="spHolder" prefHeight="423.0" prefWidth="603.0">
          <children>
@@ -51,4 +51,4 @@
          </children>
       </StackPane>
    </children>
-</fx:root>
+</VBox>

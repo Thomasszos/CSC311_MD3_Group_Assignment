@@ -1,38 +1,30 @@
 package org.example.csc311_md3_group_assignment;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Utils {
 
     //Handles changing of FXMLs.
     private static Stage primaryStage;
-    private static VBox myRoot;
 
 
     //Sets the uniform vars.
-    public static void setStage(Stage stage,VBox root) {
+    public static void setStage(Stage stage) {
         primaryStage = stage;
-        myRoot = root;
     }
 
 
-    //Loads whatever FXMl we want to work with.
-    public static void changeRoot(String fxmlPath) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource(fxmlPath));
-            fxmlLoader.setRoot(myRoot);
-            Scene scene = new Scene(fxmlLoader.load(), 603, 423);
-            primaryStage.setTitle("Hello!");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    //Loads whatever FXMl we want.
+    public static void changeScene(String fxml) throws IOException {
+        Parent pane = FXMLLoader.load(Objects.requireNonNull(Utils.class.getResource(fxml)));
+        primaryStage.getScene().setRoot(pane);
     }
 }

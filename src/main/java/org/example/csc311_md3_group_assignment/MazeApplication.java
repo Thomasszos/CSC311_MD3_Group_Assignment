@@ -12,21 +12,27 @@ import java.io.IOException;
 public class MazeApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        VBox root = new VBox();
-        //Sets the stage and root we will be adjusting.
-        Utils.setStage(stage, root);
 
-        //Sets the exact FXML that will be used currently.
-        Utils.changeRoot("firstmaze-view.fxml");
+        Utils.setStage(stage);
 
 
-        //Old Code.
-//        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("firstmaze-view.fxml"));
-//        fxmlLoader.setRoot(root);
-//        Scene scene = new Scene(fxmlLoader.load(), 603, 423);
-//        stage.setTitle("Hello!");
-//        stage.setScene(scene);
-//        stage.show();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("firstmaze-view.fxml"));
+        //Parent root = (Parent)fxmlLoader.load();
+        Scene scene = new Scene(fxmlLoader.load(), 603, 423);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+
+        Utils.changeScene("secondmaze-view.fxml");
+
+
+
+
+
+
+
+
     }
 
     public static void main(String[] args) {
