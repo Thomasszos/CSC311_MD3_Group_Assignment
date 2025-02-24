@@ -24,7 +24,7 @@ public class MazeApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Utils.changeScene("secondmaze-view.fxml");
+        //Utils.changeScene("secondmaze-view.fxml");
 
 
 
