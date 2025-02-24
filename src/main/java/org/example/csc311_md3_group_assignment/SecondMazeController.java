@@ -67,7 +67,7 @@ public class SecondMazeController implements Initializable {
     /**
      * Handles movement of the robot when arrow keys are pressed.
      */
-    public void moveCharacter(KeyEvent event) {
+    private void moveCharacter(KeyEvent event) {
         double stepSize = 5;  // Adjust this value if movement is too slow or too fast
         double newX = robotCharacter.getLayoutX();
         double newY = robotCharacter.getLayoutY();
