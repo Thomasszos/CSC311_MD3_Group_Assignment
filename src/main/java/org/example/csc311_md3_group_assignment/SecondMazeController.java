@@ -41,27 +41,14 @@ public class SecondMazeController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Load the maze image and prepare for pixel reading
         mazeImage = ivMaze.getImage();
         pixelReader = mazeImage.getPixelReader();
 
-        // Load the robot character
-        robotImage = new Image(getClass().getResource("robot.png").toExternalForm());
-        robotCharacter = new ImageView(robotImage);
+        // Create and add the car
+        car = new Car(20, 250); // Start pos
+        apMovement.getChildren().add(car.getCarPane());
 
-        // Set the robot’s initial size and position
-        robotCharacter.setFitHeight(15);
-        robotCharacter.setFitWidth(15);
-        robotCharacter.setLayoutX(15);  // Starting X position
-        robotCharacter.setLayoutY(254); // Starting Y position
-
-        // Add the robot to the movement pane
-        apMovement.getChildren().add(robotCharacter);
-
-        // Enable keyboard controls for movement
-        apMovement.setOnKeyPressed(this::moveCharacter);
-
-        // Ensure focus is set so key events work
+        apMovement.setOnKeyPressed(this::moveCar);
         apMovement.setFocusTraversable(true);
         apMovement.requestFocus();
     }
