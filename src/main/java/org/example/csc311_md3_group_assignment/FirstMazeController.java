@@ -1,5 +1,6 @@
 package org.example.csc311_md3_group_assignment;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -11,7 +12,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -105,7 +108,36 @@ public class FirstMazeController implements Initializable {
             default:
                 break;
         }
+
+        checkForExit();
+
     }
 
+    private void checkForExit() {
+        // Define the exit region based on the maze image dimensions (example: bottom-right 50x50 area)
+        double exitThresholdX = ivMaze.getFitWidth() - 50; // Near the right edge
+        double exitThresholdY = ivMaze.getFitHeight() / 2 - 25;
+        if (robotCharacter.getLayoutX() >= exitThresholdX && robotCharacter.getLayoutY() >= exitThresholdY) {
+            System.out.println("Exit reached!");
+            // ADDED: Trigger the transition to the second maze.
+            triggerExitTransition();
+        }
+    }
 
+    // ADDED: New method to animate (fade out) and switch to the second maze scene.
+    private void triggerExitTransition() {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), robotCharacter);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.0);
+        fade.setOnFinished(e -> {
+            try {
+                // Use the Utils class to change the scene to the second maze FXML.
+                Utils.changeScene("secondmaze-view.fxml");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fade.play();
+    }
 }
+
