@@ -74,21 +74,25 @@ public class SecondMazeController implements Initializable {
 
         switch (event.getCode()) {
             case UP:
+                robotCharacter.setRotate(270); // Face Up
                 if (canMove(newX, newY - stepSize)) {
                     robotCharacter.setLayoutY(newY - stepSize);
                 }
                 break;
             case DOWN:
+                robotCharacter.setRotate(90); // Face Down
                 if (canMove(newX, newY + stepSize)) {
                     robotCharacter.setLayoutY(newY + stepSize);
                 }
                 break;
             case LEFT:
+                robotCharacter.setRotate(180); // Face Left
                 if (canMove(newX - stepSize, newY)) {
                     robotCharacter.setLayoutX(newX - stepSize);
                 }
                 break;
             case RIGHT:
+                robotCharacter.setRotate(0); // Face Right
                 if (canMove(newX + stepSize, newY)) {
                     robotCharacter.setLayoutX(newX + stepSize);
                 }
