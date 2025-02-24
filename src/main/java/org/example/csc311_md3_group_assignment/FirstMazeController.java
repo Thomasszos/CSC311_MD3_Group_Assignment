@@ -35,7 +35,7 @@ public class FirstMazeController implements Initializable {
     @FXML
     private VBox vbRoot;
 
-    Image robotImage = new Image(getClass().getResource("robot.png").toExternalForm());
+    Image robotImage = new Image(getClass().getResource("car.png").toExternalForm());
     ImageView robotCharacter = new ImageView(robotImage);
 
 
@@ -139,5 +139,7 @@ public class FirstMazeController implements Initializable {
         });
         fade.play();
     }
+
+
 }
 
