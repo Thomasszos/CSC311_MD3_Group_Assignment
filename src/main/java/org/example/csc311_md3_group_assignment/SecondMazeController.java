@@ -37,6 +37,8 @@ public class SecondMazeController implements Initializable {
     private Image mazeImage;
     private PixelReader pixelReader;
 
+    private Car car;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Load the maze image and prepare for pixel reading
@@ -91,6 +93,38 @@ public class SecondMazeController implements Initializable {
             case RIGHT:
                 if (canMove(newX + stepSize, newY)) {
                     robotCharacter.setLayoutX(newX + stepSize);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Handles movement of the car when arrow keys are pressed.
+     */
+    private void moveCar(KeyEvent event) {
+        double stepSize = 5;
+        double newX = car.getX();
+        double newY = car.getY();
+
+        switch (event.getCode()) {
+            case UP:
+                if (canMove(newX, newY - stepSize)) {
+                    car.move(0, -stepSize);
+                }
+                break;
+            case DOWN:
+                if (canMove(newX, newY + stepSize)) {
+                    car.move(0, stepSize);
+                }
+                break;
+            case LEFT:
+                if (canMove(newX - stepSize, newY)) {
+                    car.move(-stepSize, 0);
+                }
+                break;
+            case RIGHT:
+                if (canMove(newX + stepSize, newY)) {
+                    car.move(stepSize, 0);
                 }
                 break;
         }
