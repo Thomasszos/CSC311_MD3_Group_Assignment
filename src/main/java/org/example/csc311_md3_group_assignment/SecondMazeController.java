@@ -121,16 +121,28 @@ public class SecondMazeController implements Initializable {
      * Checks if the robot can move to a new position based on pixel color.
      */
     private boolean canMove(double x, double y) {
-        // Prevent moving outside the maze boundaries
         if (x < 0 || y < 0 || x >= mazeImage.getWidth() || y >= mazeImage.getHeight()) {
+            return false; // Prevent moving outside maze boundaries
+        }
+
+        // Check multiple pixels for better accuracy (front-left and front-right edges of the car)
+        Color pixelColor1 = pixelReader.getColor((int) x, (int) y);
+        Color pixelColor2 = pixelReader.getColor((int) x + 10, (int) y); // Check a bit ahead
+
+        // Prevent movement if any checked pixel is part of a wall (black color)
+        if (isWall(pixelColor1) || isWall(pixelColor2)) {
             return false;
         }
 
-        // Get pixel color at the new position
-        Color color = pixelReader.getColor((int) x, (int) y);
-
-        // Allow movement if the pixel is **not black** (walls are usually black)
-        return color.getBrightness() > 0.3;  // Adjusted from 0.9 to 0.3 to allow more movement
+        return true;
     }
+
+    /**
+     * Determines if a pixel color represents a wall (blue).
+     */
+    private boolean isWall(Color color) {
+        return color.getBlue() > 0.6 && color.getRed() < 0.4 && color.getGreen() < 0.4;
+    }
+
 }
 
