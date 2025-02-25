@@ -56,12 +56,19 @@ public class SecondMazeController implements Initializable {
         // Add the robot to the movement pane
         apMovement.getChildren().add(robotCharacter);
 
-        // Enable keyboard controls for movement
-        apMovement.setOnKeyPressed(this::moveCharacter);
-
-        // Ensure focus is set so key events work
+        // Ensure focus stays on `apMovement` when the scene loads
         apMovement.setFocusTraversable(true);
         apMovement.requestFocus();
+
+        // If focus is lost, bring it back
+        apMovement.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal) {
+                apMovement.requestFocus();
+            }
+        });
+
+        //Attach key event listener directly to `apMovement`
+        apMovement.setOnKeyPressed(this::moveCharacter);
     }
 
     /**
