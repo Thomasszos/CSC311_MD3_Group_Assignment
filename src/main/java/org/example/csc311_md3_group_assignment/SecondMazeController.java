@@ -44,13 +44,25 @@ public class SecondMazeController implements Initializable {
         mazeImage = ivMaze.getImage();
         pixelReader = mazeImage.getPixelReader();
 
+
         // Create and add the car
         car = new Car(20, 250); // Start pos
         apMovement.getChildren().add(car.getCarPane());
 
         apMovement.setOnKeyPressed(this::moveCar);
+
         apMovement.setFocusTraversable(true);
         apMovement.requestFocus();
+
+        // If focus is lost, bring it back
+        apMovement.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal) {
+                apMovement.requestFocus();
+            }
+        });
+
+        //Attach key event listener directly to `apMovement`
+        apMovement.setOnKeyPressed(this::moveCharacter);
     }
 
     /**
