@@ -77,4 +77,8 @@ public class Car {
         return y;
     }
 
+    public void setRotation(double angle) {
+        carPane.setRotate(angle); // Rotates the entire car
+    }
+
 }

@@ -95,21 +95,29 @@ public class SecondMazeController implements Initializable {
 
         switch (event.getCode()) {
             case UP:
+                car.setRotation(270); // Face Up
+                car.getCarPane().setScaleY(1); // Reset flip
                 if (canMove(newX, newY - stepSize)) {
                     car.move(0, -stepSize);
                 }
                 break;
             case DOWN:
+                car.setRotation(90); // Face Down
+                car.getCarPane().setScaleY(1); // Reset flip
                 if (canMove(newX, newY + stepSize)) {
                     car.move(0, stepSize);
                 }
                 break;
             case LEFT:
+                car.setRotation(180); // Face Left
+                car.getCarPane().setScaleY(-1); // Flip vertically to fix upside-down issue
                 if (canMove(newX - stepSize, newY)) {
                     car.move(-stepSize, 0);
                 }
                 break;
             case RIGHT:
+                car.setRotation(0); // Face Right
+                car.getCarPane().setScaleY(1); // Reset flip
                 if (canMove(newX + stepSize, newY)) {
                     car.move(stepSize, 0);
                 }
