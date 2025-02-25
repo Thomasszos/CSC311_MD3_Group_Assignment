@@ -17,7 +17,7 @@ public class MazeApplication extends Application {
 
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("secondmaze-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MazeApplication.class.getResource("firstmaze-view.fxml"));
         //Parent root = (Parent)fxmlLoader.load();
         Scene scene = new Scene(fxmlLoader.load(), 603, 423);
         stage.setTitle("Hello!");
