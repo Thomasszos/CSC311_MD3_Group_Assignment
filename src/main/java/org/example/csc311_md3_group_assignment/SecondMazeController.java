@@ -62,40 +62,40 @@ public class SecondMazeController implements Initializable {
         });
 
         //Attach key event listener directly to `apMovement`
-        apMovement.setOnKeyPressed(this::moveCharacter);
+        //apMovement.setOnKeyPressed(this::moveCharacter);
     }
 
     /**
      * Handles movement of the robot when arrow keys are pressed.
      */
-    private void moveCharacter(KeyEvent event) {
-        double stepSize = 5;  // Adjust this value if movement is too slow or too fast
-        double newX = robotCharacter.getLayoutX();
-        double newY = robotCharacter.getLayoutY();
-
-        switch (event.getCode()) {
-            case UP:
-                if (canMove(newX, newY - stepSize)) {
-                    robotCharacter.setLayoutY(newY - stepSize);
-                }
-                break;
-            case DOWN:
-                if (canMove(newX, newY + stepSize)) {
-                    robotCharacter.setLayoutY(newY + stepSize);
-                }
-                break;
-            case LEFT:
-                if (canMove(newX - stepSize, newY)) {
-                    robotCharacter.setLayoutX(newX - stepSize);
-                }
-                break;
-            case RIGHT:
-                if (canMove(newX + stepSize, newY)) {
-                    robotCharacter.setLayoutX(newX + stepSize);
-                }
-                break;
-        }
-    }
+//    private void moveCharacter(KeyEvent event) {
+//        double stepSize = 5;  // Adjust this value if movement is too slow or too fast
+//        double newX = robotCharacter.getLayoutX();
+//        double newY = robotCharacter.getLayoutY();
+//
+//        switch (event.getCode()) {
+//            case UP:
+//                if (canMove(newX, newY - stepSize)) {
+//                    robotCharacter.setLayoutY(newY - stepSize);
+//                }
+//                break;
+//            case DOWN:
+//                if (canMove(newX, newY + stepSize)) {
+//                    robotCharacter.setLayoutY(newY + stepSize);
+//                }
+//                break;
+//            case LEFT:
+//                if (canMove(newX - stepSize, newY)) {
+//                    robotCharacter.setLayoutX(newX - stepSize);
+//                }
+//                break;
+//            case RIGHT:
+//                if (canMove(newX + stepSize, newY)) {
+//                    robotCharacter.setLayoutX(newX + stepSize);
+//                }
+//                break;
+//        }
+//    }
 
     /**
      * Handles movement of the car when arrow keys are pressed.
