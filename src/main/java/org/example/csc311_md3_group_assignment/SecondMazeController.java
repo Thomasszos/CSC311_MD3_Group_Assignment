@@ -39,19 +39,37 @@ public class SecondMazeController implements Initializable {
 
     private Car car;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        mazeImage = ivMaze.getImage();
-        pixelReader = mazeImage.getPixelReader();
+@Override
+public void initialize(URL url, ResourceBundle resourceBundle) {
+    mazeImage = ivMaze.getImage();
+    pixelReader = mazeImage.getPixelReader();
 
-        // Create and add the car
-        car = new Car(20, 250); // Start pos
-        apMovement.getChildren().add(car.getCarPane());
+    // Create and add the car (it stays on screen)
+    car = new Car(20, 250); // Starting position for the car
+    apMovement.getChildren().add(car.getCarPane());
 
-        apMovement.setOnKeyPressed(this::moveCar);
-        apMovement.setFocusTraversable(true);
-        apMovement.requestFocus();
-    }
+    // Set the robot’s initial size and position
+    robotCharacter.setFitHeight(15);
+    robotCharacter.setFitWidth(15);
+    robotCharacter.setLayoutX(15);  // Starting X position for the robot
+    robotCharacter.setLayoutY(254); // Starting Y position for the robot
+
+    // Add the robot to the movement pane (this one moves)
+    apMovement.getChildren().add(robotCharacter);
+
+    apMovement.setFocusTraversable(true);
+    apMovement.requestFocus();
+
+    // Ensure focus stays on `apMovement` when the scene loads
+    apMovement.focusedProperty().addListener((obs, oldVal, newVal) -> {
+        if (!newVal) {
+            apMovement.requestFocus();
+        }
+    });
+
+    // Attach key event listener for moving the robot (the car remains stationary)
+    apMovement.setOnKeyPressed(this::moveCharacter);
+}
 
     /**
      * Handles movement of the robot when arrow keys are pressed.
