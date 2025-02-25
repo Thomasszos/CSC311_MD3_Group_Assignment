@@ -37,39 +37,39 @@ public class SecondMazeController implements Initializable {
     private Image mazeImage;
     private PixelReader pixelReader;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Load the maze image and prepare for pixel reading
-        mazeImage = ivMaze.getImage();
-        pixelReader = mazeImage.getPixelReader();
+    private Car car;
 
-        // Load the robot character
-        robotImage = new Image(getClass().getResource("robot.png").toExternalForm());
-        robotCharacter = new ImageView(robotImage);
+@Override
+public void initialize(URL url, ResourceBundle resourceBundle) {
+    mazeImage = ivMaze.getImage();
+    pixelReader = mazeImage.getPixelReader();
 
-        // Set the robot’s initial size and position
-        robotCharacter.setFitHeight(15);
-        robotCharacter.setFitWidth(15);
-        robotCharacter.setLayoutX(15);  // Starting X position
-        robotCharacter.setLayoutY(254); // Starting Y position
+    // Create and add the car (it stays on screen)
+    car = new Car(20, 250); // Starting position for the car
+    apMovement.getChildren().add(car.getCarPane());
 
-        // Add the robot to the movement pane
-        apMovement.getChildren().add(robotCharacter);
+    // Set the robot’s initial size and position
+    robotCharacter.setFitHeight(15);
+    robotCharacter.setFitWidth(15);
+    robotCharacter.setLayoutX(15);  // Starting X position for the robot
+    robotCharacter.setLayoutY(254); // Starting Y position for the robot
 
-        // Ensure focus stays on `apMovement` when the scene loads
-        apMovement.setFocusTraversable(true);
-        apMovement.requestFocus();
+    // Add the robot to the movement pane (this one moves)
+    apMovement.getChildren().add(robotCharacter);
 
-        // If focus is lost, bring it back
-        apMovement.focusedProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal) {
-                apMovement.requestFocus();
-            }
-        });
+    apMovement.setFocusTraversable(true);
+    apMovement.requestFocus();
 
-        //Attach key event listener directly to `apMovement`
-        apMovement.setOnKeyPressed(this::moveCharacter);
-    }
+    // Ensure focus stays on `apMovement` when the scene loads
+    apMovement.focusedProperty().addListener((obs, oldVal, newVal) -> {
+        if (!newVal) {
+            apMovement.requestFocus();
+        }
+    });
+
+    // Attach key event listener for moving the robot (the car remains stationary)
+    apMovement.setOnKeyPressed(this::moveCharacter);
+}
 
     /**
      * Handles movement of the robot when arrow keys are pressed.
@@ -98,6 +98,46 @@ public class SecondMazeController implements Initializable {
             case RIGHT:
                 if (canMove(newX + stepSize, newY)) {
                     robotCharacter.setLayoutX(newX + stepSize);
+                }
+                break;
+        }
+    }
+
+    /**
+     * Handles movement of the car when arrow keys are pressed.
+     */
+    private void moveCar(KeyEvent event) {
+        double stepSize = 5;
+        double newX = car.getX();
+        double newY = car.getY();
+
+        switch (event.getCode()) {
+            case UP:
+                car.setRotation(270); // Face Up
+                car.getCarPane().setScaleY(1); // Reset flip
+                if (canMove(newX, newY - stepSize)) {
+                    car.move(0, -stepSize);
+                }
+                break;
+            case DOWN:
+                car.setRotation(90); // Face Down
+                car.getCarPane().setScaleY(1); // Reset flip
+                if (canMove(newX, newY + stepSize)) {
+                    car.move(0, stepSize);
+                }
+                break;
+            case LEFT:
+                car.setRotation(180); // Face Left
+                car.getCarPane().setScaleY(-1); // Flip vertically to fix upside-down issue
+                if (canMove(newX - stepSize, newY)) {
+                    car.move(-stepSize, 0);
+                }
+                break;
+            case RIGHT:
+                car.setRotation(0); // Face Right
+                car.getCarPane().setScaleY(1); // Reset flip
+                if (canMove(newX + stepSize, newY)) {
+                    car.move(stepSize, 0);
                 }
                 break;
         }
