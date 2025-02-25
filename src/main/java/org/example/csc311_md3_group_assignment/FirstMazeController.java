@@ -47,26 +47,37 @@ public class FirstMazeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        //Makes sure the image is loaded and preps reading pixels.
+        // Load the maze image and prepare for pixel reading
         mazeImage = ivMaze.getImage();
         pixelReader = mazeImage.getPixelReader();
 
-
-        //Defines Characters initial starting point and size.
+        // Define the robot's initial position and size
         robotCharacter.setFitHeight(15);
         robotCharacter.setFitWidth(15);
         robotCharacter.setLayoutX(15);
         robotCharacter.setLayoutY(254);
 
-        //Adds robot to the Anchor Pane. Do not put him in the stack pane as that auto-centers.
+        // Add the robot to the AnchorPane
         apMovement.getChildren().add(robotCharacter);
 
+        // Ensure the pane captures key events
+        apMovement.setFocusTraversable(true);
+        apMovement.requestFocus();
 
-        //If you don't set this then your arrow keys won't be registered, unless you apply them to a different part of the scene
-        spHolder.setFocusTraversable(true); // Allow focus on the container
-        spHolder.requestFocus();
+        //Attach key event listener directly to apMovement
+        apMovement.setOnKeyPressed(this::moveCharacter);
 
+        // If focus is lost, automatically bring it back
+        apMovement.focusedProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal) {
+                apMovement.requestFocus();
+            }
+        });
+
+        // Prevent TabPane from stealing arrow key events
+        vbRoot.setOnKeyPressed(this::moveCharacter);
     }
+
 
 
     @FXML
